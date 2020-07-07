@@ -1,0 +1,211 @@
+#----------------------------------------------------------------------#
+#                                                                      #
+#         Internal Building Block Test directory makefile              #
+#                                                                      #
+#----------------------------------------------------------------------#
+#
+# Author       : Software Configuration Management (scmgt)
+#
+# Created      : 17-09-2015
+#
+# Description  :
+#
+# Note         : Fill-in appropriate macro's only.
+#
+# History
+# Writing History is deprecated for this component!
+
+#----------------------------------------------------------------------#
+#                                                                      #
+#                   Copyright (c)  ASML B.V.  2015                     #
+#                     Veldhoven - The Netherlands                      #
+#                                                                      #
+#----------------------------------------------------------------------#
+
+all :
+
+#----------------------------------------------------------------------#
+#             Variables                                                #
+#----------------------------------------------------------------------#
+
+#----------------------------------------------------------------------#
+#             Generated files                                          #
+#----------------------------------------------------------------------#
+INCTARGET += KILMEXXTxDBtyp.h\
+             KILMEXXTxDB.ddb
+
+INCTARGET += KILMEXXTxLENStyp.h \
+             KILMEXXTxLENS.ddb
+
+INCTARGET += KILMEXcDB.ddb  \
+             KILMEXcDBtyp.h
+
+
+#----------------------------------------------------------------------#
+#             Parralel Sun and WRLinux part                            #
+#----------------------------------------------------------------------#
+
+X86TARGET += KILMEX_conv_lens_dep_2_binary
+KILMEX_conv_lens_dep_2_binary,SRCS    = KILMEX_conv_lens_dep_2_binary.c
+KILMEX_conv_lens_dep_2_binary,USRLIBS = \
+   libCNXA\
+   libDDXA\
+   libERXA\
+   libPLXA\
+   libTHXA\
+   libXt\
+   libX11
+
+X86CPPTARGETSOL += libAbstractTest.cpp.so
+libAbstractTest.cpp.so,SRCS = AbstractTest.cpp \
+                              AbstractLensElementTest.cpp
+libAbstractTest.cpp.so,DEPSOL_X86= \
+   libgtest \
+   libgmock \
+   libpthread \
+   libGNKIEXxADJ \
+   libKILMEX_CM_helpers.cpp \
+   libKILMEX_LensDependencies.cpp.so \
+   libKILMEX_LensHandler.cpp \
+   libKILMEX_LensModelElementBuilder.cpp \
+   libKILMEXxCOMsandbox_gmock.cpp \
+   libLHXAxRNG.cpp
+
+X86CPPTARGETSOL += libKILMEX_CM_helpers.cpp.so
+libKILMEX_CM_helpers.cpp.so,SRCS    = CM_helpers.cpp
+libKILMEX_CM_helpers.cpp.so,DEPSOL_X86= \
+   libCNXA\
+   libDDXA\
+   libERXA\
+   libPLXA\
+   libTHXA\
+
+
+#%{TPL1}%#
+
+SUNTARGETSOL +=
+
+
+#----------------------------------------------------------------------#
+#             Sun only part                                            #
+#----------------------------------------------------------------------#
+SPARCTARGET +=
+
+SPARCTARGETSOL +=
+
+#----------------------------------------------------------------------#
+#             WRLinux only part                                        #
+#----------------------------------------------------------------------#
+X86TARGET +=
+
+SUNTARGETSOL +=
+
+# Uncomment for DLM .dd file regeneration
+#X86_MCRTARGET  += KILMEXtest_generate_data
+#KILMEXtest_generate_data,MCRFLAGS = \
+#               -v -m \
+#               -I ./matlab
+##               -I /vobs/litho/BB-027-0002A/PY/com/ext/lib/bld_x86lnx # Uncomment for .dd file regeneration
+
+# Uncomment for DLM .dd file regeneration
+#X86_MEXTARGET += PYmat2dd_write.mexa64
+#PYmat2dd_write.mexa64,SRCS = PYmat2dd_write.c
+#PYmat2dd_write.mexa64,MCRFLAGS = -DMCR -DMX_COMPAT_32
+#PYmat2dd_write.mexa64,DEPSOL = \
+#   libmex \
+#   libmx \
+#   libDDXA.a64 \
+#   libPYxMATLAB.a64
+
+# Uncomment for SLM .dd file regeneration
+#X86_MCRTARGET  += KILMEXXAxSLMtest_generate_data
+#KILMEXXAxSLMtest_generate_data,MCRFLAGS = \
+#               -v -m \
+#               -I ./matlab
+
+#----------------------------------------------------------------------#
+#             VxWorks part                                             #
+#----------------------------------------------------------------------#
+VXppcTARGETLIB +=
+
+VXppcTARGET +=
+
+#----------------------------------------------------------------------#
+#             Linux part                                               #
+#----------------------------------------------------------------------#
+LNXppce500_speTARGETSOL +=
+
+LNXppce500_speTARGET +=
+
+#----------------------------------------------------------------------#
+#             Data files to build                                      #
+#----------------------------------------------------------------------#
+DATTARGET +=
+
+#----------------------------------------------------------------------#
+#             Special flags                                            #
+#----------------------------------------------------------------------#
+KILMEX_COM_INT_TST_CFLAGS = -fno-defer-pop -O3 -Wall -Werror -fbounds-check
+KILMEX_conv_lens_dep_2_binary,CFLAGS += -fno-defer-pop -O3 -Wall -Werror -fbounds-check
+qpAS_test,CFLAGS += $(KILMEX_COM_INT_TST_CFLAGS)
+qpAS_mkl_test,CFLAGS += $(KILMEX_COM_INT_TST_CFLAGS)
+qpAS_coder_test,CFLAGS += $(KILMEX_COM_INT_TST_CFLAGS)
+
+
+#----------------------------------------------------------------------#
+#            Export                                                    #
+#----------------------------------------------------------------------#
+KILMEX_COM_INT_TST_EXPORT_ENABLE = 1
+KILMEX_COM_INT_TST_EXPORT_LOCATION = /usr/asm/atl.0000/KILMEX/tstpkg/
+
+EXPORTTARGET += KILMEX_autotest.xml
+KILMEX_autotest.xml,EXPORTFLAGS += -location /usr/asm/atl.0000/GNME/tstpkg/
+
+EXPORTTARGET += \
+   UT_run.sh \
+   matlab/KILMEXtest_input4autotesters.txt \
+   matlab/qpAS_test_A.mat \
+   matlab/qpAS_test_H.mat \
+   matlab/qpAS_test_f.mat \
+   matlab/qpAS_test_lbA.mat \
+   matlab/qpAS_test_ubA.mat \
+   matlab/qpAS_test_x.mat \
+   matlab/lens_type/98.mat \
+   matlab/lens_type/99.mat \
+   matlab/lens_type/03.mat \
+   matlab/lens_type/04.mat
+
+KILMEXXTxLENS.ddb,EXPORTFLAGS = -location /usr/asm/atl.0000/DD/ -mod 0644
+KILMEXcDB.ddb,EXPORTFLAGS = -location /usr/asm/atl.0000/DD/ -mod 0644
+
+qpAS_test,EXPORTFLAGS = -mod 0755 -location /usr/asm/atl.0000/KILMEX/tstpkg/qpAS_test
+qpAS_mkl_test,EXPORTFLAGS = -mod 0755 -location /usr/asm/atl.0000/KILMEX/tstpkg/qpAS_mkl_test
+qpAS_coder_test,EXPORTFLAGS = -mod 0755 -location /usr/asm/atl.0000/KILMEX/tstpkg/qpAS_coder_test
+
+#PYmat2dd_write.mexa64,EXPORTFLAGS = -mod 0755 -location /usr/asm/atl.0000/KILMEX/tstpkg/
+
+# Export MATLAB data
+matlab/KILMEXtest_input4autotesters.txt,EXPORTFLAGS = -location /usr/asm/atl.0000/KILMEX/tstpkg/KILMEXtest_input4autotesters.txt
+matlab/qpAS_test_A.mat,EXPORTFLAGS   = -mod 0644 -location /usr/asm/atl.0000/KILMEX/tstpkg/qpAS_test_A.mat
+matlab/qpAS_test_H.mat,EXPORTFLAGS   = -mod 0644 -location /usr/asm/atl.0000/KILMEX/tstpkg/qpAS_test_H.mat
+matlab/qpAS_test_f.mat,EXPORTFLAGS   = -mod 0644 -location /usr/asm/atl.0000/KILMEX/tstpkg/qpAS_test_f.mat
+matlab/qpAS_test_lbA.mat,EXPORTFLAGS = -mod 0644 -location /usr/asm/atl.0000/KILMEX/tstpkg/qpAS_test_lbA.mat
+matlab/qpAS_test_ubA.mat,EXPORTFLAGS = -mod 0644 -location /usr/asm/atl.0000/KILMEX/tstpkg/qpAS_test_ubA.mat
+matlab/qpAS_test_x.mat,EXPORTFLAGS   = -mod 0644 -location /usr/asm/atl.0000/KILMEX/tstpkg/qpAS_test_x.mat
+
+matlab/lens_type/98.mat,EXPORTFLAGS   = -mod 0644 -location /usr/asm/atl.0000/KILMEX/tstpkg/lens_type/98.mat
+matlab/lens_type/99.mat,EXPORTFLAGS   = -mod 0644 -location /usr/asm/atl.0000/KILMEX/tstpkg/lens_type/99.mat
+matlab/lens_type/03.mat,EXPORTFLAGS   = -mod 0644 -location /usr/asm/atl.0000/KILMEX/tstpkg/lens_type/03.mat
+matlab/lens_type/04.mat,EXPORTFLAGS   = -mod 0644 -location /usr/asm/atl.0000/KILMEX/tstpkg/lens_type/04.mat
+
+#----------------------------------------------------------------------#
+#             Include the standard makefile template                   #
+#----------------------------------------------------------------------#
+include makefile.genKILMEX_COM.mk
+include makefile.genKILMEXXAxLENS.mk
+include makefile.genKILMEXXAxSLM.mk
+include makefile.genKILMEX_DLMv21.mk
+include $(CODEMGR_WS)/xscm/inttst.mk
+#----------------------------------------------------------------------#
+#    End of file. Warning: Everything after the include is ignored!    #
+#----------------------------------------------------------------------#

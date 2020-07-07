@@ -1,0 +1,7 @@
+EXPORTS
+f2_auto_tester
+emxEnsureCapacity_real_T
+emxFree_real_T
+emxInit_real_T
+f2_auto_tester_initialize
+f2_auto_tester_terminate

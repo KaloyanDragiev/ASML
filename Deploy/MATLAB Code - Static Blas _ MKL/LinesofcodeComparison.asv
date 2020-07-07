@@ -1,0 +1,19 @@
+number = [35 10];
+labels = {'C','MATLAB'};
+labelpie = {'35','10'};
+ax1 = subplot(1,2,1);
+pie(ax1, number, labelpie)
+legend(labels,'Location','southoutside')
+legend('boxoff')
+title('Number of generated files')
+
+%f3_auto_tester - 1171 C code / 136 MATLAB code
+% files generated - 35 / 10 matlab 
+number = [1171 136];
+labels = {'C','MATLAB'};
+labelpie = {'1171','136'};
+ax2 = subplot(1,2,2);
+pie(ax2, number, labelpie)
+legend(labels,'Location','southoutside')
+legend('boxoff')
+title('Number of lines of code generated')
